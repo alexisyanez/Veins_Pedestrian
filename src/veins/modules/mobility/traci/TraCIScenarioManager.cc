@@ -1355,14 +1355,14 @@ void TraCIScenarioManager::processPersonSubscription(std::string objectId, TraCI
             numRead++;
             MYDEBUG << "Into angle ID variable:"<< angle_traci <<endl;
 
-            Coord p = connection->traci2omnet(TraCICoord(px, py));
+           /*Coord p = connection->traci2omnet(TraCICoord(px, py));
             double angle = connection->traci2omnetAngle(angle_traci);
             cModule* mod = getManagedModule(objectId);
             if(!mod){
             MYDEBUG << "Added Person aquí #" << objectId << endl;
             addPedModule(objectId, PedType, PedName, PedDisp, p, edge, speed, angle); //addModule
             MYDEBUG << "Added Person #" << objectId << endl;
-            }
+            }*/
             //else updateModulePosition(mod, p, edge, speed, angle,VEH_SIGNAL_NONE);
 
         }/* else if (variable1_resp == VAR_SIGNALS) {
@@ -1374,7 +1374,7 @@ void TraCIScenarioManager::processPersonSubscription(std::string objectId, TraCI
             error("Received unhandled vehicle subscription result");
         }
     }
-
+    MYDEBUG << "Saliendo de For#"<< endl;
 
     //subscribedPedObject.push_back(objectId);
 
@@ -1397,33 +1397,13 @@ void TraCIScenarioManager::processPersonSubscription(std::string objectId, TraCI
     if (!inRoi) {
         if (mod) {
             deleteManagedModule(objectId);
-            MYDEBUG << "Person #" << objectId << " left region of interest" << endl;
+            MYDEBUG << "Pedestrian #" << objectId << " left region of interest" << endl;
         }
-       /* else if(unEquippedHosts.find(objectId) != unEquippedHosts.end()) {
+        else if(unEquippedHosts.find(objectId) != unEquippedHosts.end()) {
             unEquippedHosts.erase(objectId);
-            MYDEBUG << "Vehicle (unequipped) # " << objectId<< " left region of interest" << endl;
-        }*/
+            MYDEBUG << "Pedestrian (unequipped) # " << objectId<< " left region of interest" << endl;
+        }
         return;
-    }
-    else {
-        if (std::find(subscribedPedObject.begin(), subscribedPedObject.end(), objectId) != subscribedPedObject.end())
-                {
-            addModule(objectId, PedType, PedName, PedDisp, p, edge, speed, angle,VEH_SIGNAL_NONE); //addModule
-            MYDEBUG << "Added Person #" << objectId << endl;
-            subscribedPedObject.push_back(objectId);
-                       }
-        /*Coord p = connection->traci2omnet(TraCICoord(px, py));
-                    double angle = connection->traci2omnetAngle(angle_traci);
-
-                    MYDEBUG << "Added Person aquí #" << objectId << endl;
-                    addModule(objectId, PedType, PedName, PedDisp, p, edge, speed, angle,VEH_SIGNAL_NONE); //addModule
-                    MYDEBUG << "Added Person #" << objectId << endl;*/
-               // }
-                else {
-                // module existed - update position
-                MYDEBUG << "module " << objectId << " moving to " << p.x << "," << p.y << endl;
-               // updateModulePosition(mod, p, edge, speed, angle,VEH_SIGNAL_NONE); //updateModulePositionPed
-            }
     }
 
     if (isModuleUnequipped(objectId)) {
@@ -1432,43 +1412,27 @@ void TraCIScenarioManager::processPersonSubscription(std::string objectId, TraCI
 
     if (!mod) {
         // no such module - need to create
-        std::string vType = commandIfc->pedestrian(objectId).getTypeId();
-        //std::string mType, mName, mDisplayString;
-        /*TypeMapping::iterator iType, iName, iDisplayString;
 
-        TypeMapping::iterator i;
-        iType = moduleType.find(vType);
-        if (iType == moduleType.end()) {
-            iType = moduleType.find("*");
-            if (iType == moduleType.end())
-                throw cRuntimeError("cannot find a module type for Person type \"%s\"", vType.c_str());
+      //  if (std::find(subscribedPedObject.begin(), subscribedPedObject.end(), objectId) != subscribedPedObject.end()){
+            addPedModule(objectId, PedType, PedName, PedDisp, p, edge, speed, angle); //,VEH_SIGNAL_NONE); //addModule
+            MYDEBUG << "Added Person #" << objectId << endl;
+            subscribedPedObject.push_back(objectId);
         }
-        mType = iType->second;
-        //search for module name
-        iName = moduleName.find(vType);
-        if (iName == moduleName.end()) {
-            iName = moduleName.find(std::string("*"));
-            if (iName == moduleName.end())
-                throw cRuntimeError("cannot find a module name for Person type \"%s\"", vType.c_str());
-        }
-        mName = iName->second;
-        if (moduleDisplayString.size() != 0) {
-            iDisplayString = moduleDisplayString.find(vType);
-            if (iDisplayString == moduleDisplayString.end()) {
-                iDisplayString = moduleDisplayString.find("*");
-                if (iDisplayString == moduleDisplayString.end())
-                    throw cRuntimeError("cannot find a module display string for Person type \"%s\"", vType.c_str());
-            }
-            mDisplayString = iDisplayString->second;
-        }
+        /*Coord p = connection->traci2omnet(TraCICoord(px, py));
+                    double angle = connection->traci2omnetAngle(angle_traci);
+
+                    MYDEBUG << "Added Person aquí #" << objectId << endl;
+                    addModule(objectId, PedType, PedName, PedDisp, p, edge, speed, angle,VEH_SIGNAL_NONE); //addModule
+                    MYDEBUG << "Added Person #" << objectId << endl;*/
+               // }
         else {
-            mDisplayString = "";
+        // module existed - update position
+        MYDEBUG << "module " << objectId << " moving to " << p.x << "," << p.y << endl;
+        updateModulePositionPed(mod, p, edge, speed, angle); //updateModulePositionPed
         }
-*/
-        //if (mType != "0") {
-        //iType =;
 
-    }
+    //}
+
 }
 
 
