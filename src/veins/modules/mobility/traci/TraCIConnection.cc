@@ -118,6 +118,21 @@ TraCIBuffer TraCIConnection::query(uint8_t commandId, const TraCIBuffer& buf) {
 	return obuf;
 }
 
+TraCIBuffer TraCIConnection::queryStage(uint8_t commandId, uint8_t index, const TraCIBuffer& buf) {
+    sendMessage(makeTraCICommandStage(commandId,index, buf));
+
+    TraCIBuffer obuf(receiveMessage());
+    uint8_t cmdLength; obuf >> cmdLength;
+    uint8_t commandResp; obuf >> commandResp;
+    ASSERT(commandResp == commandId);
+    uint8_t result; obuf >> result;
+    std::string description; obuf >> description;
+    if (result == RTYPE_NOTIMPLEMENTED) throw cRuntimeError("TraCI server reported command 0x%2x not implemented (\"%s\"). Might need newer version.", commandId, description.c_str());
+    if (result == RTYPE_ERR) throw cRuntimeError("TraCI server reported error executing command 0x%2x (\"%s\").", commandId, description.c_str());
+    ASSERT(result == RTYPE_OK);
+    return obuf;
+}
+
 TraCIBuffer TraCIConnection::queryOptional(uint8_t commandId, const TraCIBuffer& buf, bool& success, std::string* errorMsg) {
 	sendMessage(makeTraCICommand(commandId, buf));
 
@@ -219,6 +234,17 @@ std::string makeTraCICommand(uint8_t commandId, const TraCIBuffer& buf) {
 	uint8_t len = sizeof(uint8_t) + sizeof(uint8_t) + buf.str().length();
 	return (TraCIBuffer() << len << commandId).str() + buf.str();
 }
+
+std::string makeTraCICommandStage(uint8_t commandId,uint8_t index, const TraCIBuffer& buf) {
+    TraCIBuffer mycom = TraCIBuffer () << commandId <<  ',' << index;
+    if (sizeof(uint8_t) + mycom.str().length() + buf.str().length() > 0xFF) {
+        uint32_t len = sizeof(uint8_t) + mycom.str().length() + buf.str().length();
+        return (TraCIBuffer() << static_cast<uint8_t>(0) << len).str() +mycom.str() + buf.str();
+    }
+    uint8_t len = sizeof(uint8_t) + sizeof(uint8_t) + buf.str().length();
+    return (TraCIBuffer() << len).str()+mycom.str() + buf.str();
+}
+
 
 void TraCIConnection::setNetbounds(TraCICoord netbounds1, TraCICoord netbounds2, int margin) {
 	this->netbounds1 = netbounds1;

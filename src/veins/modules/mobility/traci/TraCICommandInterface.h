@@ -88,6 +88,7 @@ class TraCICommandInterface
                 //void stopAt(std::string roadId, double pos, uint8_t laneid, double radius, double waittime);
                 int32_t getLaneIndex();
                 std::string getTypeId();
+                int32_t getStage();
                 //bool changeVehicleRoute(const std::list<std::string>& roads);
 
             protected:
@@ -273,6 +274,7 @@ class TraCICommandInterface
 		Coord genericGetCoord(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
 		double genericGetDouble(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
 		int32_t genericGetInt(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
+		int32_t genericGetIntStage(uint8_t commandId,uint8_t index, std::string objectId, uint8_t variableId, uint8_t responseId);
 		std::list<std::string> genericGetStringList(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
 		std::list<Coord> genericGetCoordList(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId);
 };

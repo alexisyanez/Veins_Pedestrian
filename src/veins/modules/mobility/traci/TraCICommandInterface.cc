@@ -387,6 +387,10 @@ std::string TraCICommandInterface::Pedestrian::getTypeId() {
     return traci->genericGetString(CMD_GET_PERSON_VARIABLE, nodeId, VAR_TYPE, RESPONSE_GET_PERSON_VARIABLE);
 }
 
+int32_t TraCICommandInterface::Pedestrian::getStage() {
+    return traci->genericGetIntStage(CMD_GET_PERSON_VARIABLE, THIS_STAGE, nodeId, VAR_STAGE, RESPONSE_GET_PERSON_VARIABLE);
+}
+
 void TraCICommandInterface::Pedestrian::setColor(const TraCIColor& color) {
     TraCIBuffer p;
     p << static_cast<uint8_t>(VAR_COLOR);
@@ -569,6 +573,54 @@ int32_t TraCICommandInterface::genericGetInt(uint8_t commandId, std::string obje
 	ASSERT(buf.eof());
 
 	return res;
+}
+
+int32_t TraCICommandInterface::genericGetIntStage(uint8_t commandId, uint8_t index, std::string objectId,  uint8_t variableId, uint8_t responseId) {
+
+    //void TraCICommandInterface::Vehicle::slowDown(double speed, int32_t time) {
+        /*uint8_t variableId = VAR_STAGE;
+        uint8_t variableType = TYPE_INTEGER;*/
+        /*int32_t count = 2;
+        uint8_t speedType = TYPE_DOUBLE;
+        uint8_t durationType = TYPE_INTEGER;
+        TraCIBuffer buf = connection->query(CMD_SET_VEHICLE_VARIABLE, TraCIBuffer() << variableId << nodeId << variableType << count << speedType << speed << durationType << time);
+        ASSERT(buf.eof());
+    }*/
+
+    uint8_t resultTypeId = TYPE_INTEGER;
+
+    uint8_t variableType = TYPE_INTEGER;
+
+    int32_t res;
+
+    int a = 0;
+    TraCIBuffer buf = connection.query(commandId, TraCIBuffer() << variableId  << objectId << variableType << a);
+
+    uint8_t cmdLength; buf >> cmdLength;
+    if (cmdLength == 0) {
+        uint32_t cmdLengthX;
+        buf >> cmdLengthX;
+    }
+    uint8_t commandId_r; buf >> commandId_r;
+    ASSERT(commandId_r == responseId);
+
+    uint8_t varId; buf >> varId;
+    ASSERT(varId == variableId);
+
+    std::string objectId_r; buf >> objectId_r;
+    ASSERT(objectId_r == objectId);
+
+    //uint8_t varType_r; buf >> varType_r;
+    //ASSERT(varType_r == variableType);
+
+
+    uint8_t resType_r; buf >> resType_r;
+    ASSERT(resType_r == resultTypeId);
+    buf >> res;
+
+    ASSERT(buf.eof());
+
+    return res;
 }
 
 std::list<std::string> TraCICommandInterface::genericGetStringList(uint8_t commandId, std::string objectId, uint8_t variableId, uint8_t responseId) {

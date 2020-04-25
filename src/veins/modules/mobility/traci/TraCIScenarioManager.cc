@@ -1262,7 +1262,7 @@ void TraCIScenarioManager::processVehicleSubscription(std::string objectId, TraC
 		if (mType != "0") {
 			addModule(objectId, mType, mName, mDisplayString, p, edge, speed, angle, VehicleSignal(signals));
 			MYDEBUG << "Added vehicle #" << objectId << endl;
-			MYDEBUG << "Added vehicle #" << " MType: " << mType << " mName: "<< mName <<" DisplayStrings: "<< mDisplayString<< " p: "<< p << " Edge: "<<edge << " Speed:"<<speed<< " Angle: "<<angle <<" Sginals:"<<VehicleSignal(signals)<< endl;
+			MYDEBUG << "Added vehicle #" << " VType: " << vType << " MType: " << mType << " mName: "<< mName <<" DisplayStrings: "<< mDisplayString<< " p: "<< p << " Edge: "<<edge << " Speed:"<<speed<< " Angle: "<<angle <<" Sginals:"<<VehicleSignal(signals)<< endl;
 		}
 	} else {
 		// module existed - update position
@@ -1279,6 +1279,7 @@ void TraCIScenarioManager::processPersonSubscription(std::string objectId, TraCI
     std::string edge;
     double speed;
     double angle_traci;
+    int stage;
     //int signals;
     int numRead = 0;
 
@@ -1355,6 +1356,13 @@ void TraCIScenarioManager::processPersonSubscription(std::string objectId, TraCI
             numRead++;
             MYDEBUG << "Into angle ID variable:"<< angle_traci <<endl;
 
+//        } else if (variable1_resp == VAR_STAGE) {
+//            uint8_t varType; buf >> varType;
+//            ASSERT(varType == TYPE_INTEGER);
+//            buf >> stage;
+//            numRead++;
+//            MYDEBUG << "Into angle ID variable: "<< angle_traci <<endl;
+
            /*Coord p = connection->traci2omnet(TraCICoord(px, py));
             double angle = connection->traci2omnetAngle(angle_traci);
             cModule* mod = getManagedModule(objectId);
@@ -1414,9 +1422,27 @@ void TraCIScenarioManager::processPersonSubscription(std::string objectId, TraCI
         // no such module - need to create
 
       //  if (std::find(subscribedPedObject.begin(), subscribedPedObject.end(), objectId) != subscribedPedObject.end()){
-            addPedModule(objectId, PedType, PedName, PedDisp, p, edge, speed, angle); //,VEH_SIGNAL_NONE); //addModule
+        int perStage = commandIfc->pedestrian(objectId).getStage();
+        MYDEBUG << "The Stage of de Pedestrian is : "<< perStage <<endl;
+
+//        """getStage(string, int) -> int
+//               Returns the type of the nth next stage
+//                 0 for not-yet-departed
+//                 1 for waiting
+//                 2 for walking
+//                 3 for driving
+//               nextStageIndex 0 retrieves value for the current stage.
+//               nextStageIndex must be lower then value of getRemainingStages(personID)
+//               """
+
+        if (perStage != 3) //Not driving
+        {
+
+        addPedModule(objectId, PedType, PedName, PedDisp, p, edge, speed, angle); //,VEH_SIGNAL_NONE); //addModule
             MYDEBUG << "Added Person #" << objectId << endl;
             subscribedPedObject.push_back(objectId);
+            MYDEBUG << "Added Person Ped Type:" << PedType << "Ped Name:" << PedName << " Display Person: " << PedDisp << endl;
+        }
         }
         /*Coord p = connection->traci2omnet(TraCICoord(px, py));
                     double angle = connection->traci2omnetAngle(angle_traci);

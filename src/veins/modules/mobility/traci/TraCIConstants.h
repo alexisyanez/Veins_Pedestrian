@@ -167,9 +167,47 @@
 //response: subscribe person variable
 #define RESPONSE_SUBSCRIBE_PERSON_VARIABLE 0xee
 
+// ****************************************
+// PERSON/CONTAINER STAGES
+// ****************************************
+// person / container stopping
+#define STAGE_WAITING_FOR_DEPART 0x00
+// person / container stopping
+#define STAGE_WAITING 0x01
+// person walking
+#define STAGE_WALKING 0x02
+// person riding / container being transported
+#define STAGE_DRIVING 0x03
+// person accessing stopping place
+#define STAGE_ACCESS 0x04
+// stage for encoding abstract travel demand
+#define STAGE_TRIP 0x05
+// person / container transhiping
+#define STAGE_TRANSHIP 0x06
 
+// retrieve information regarding the current person/container stage
+#define VAR_STAGE 0xc0
 
+// retrieve information regarding the current person/container stage
+#define THIS_STAGE 0x0
 
+// retrieve information regarding the next edge including crossings and walkingAreas (pedestrians only)
+#define VAR_NEXT_EDGE 0xc1
+
+// retrieve information regarding the number of remaining stages
+#define VAR_STAGES_REMAINING 0xc2
+
+// retrieve the current vehicle id for the driving stage (person, container)
+#define  VAR_VEHICLE 0xc3
+
+// append a person stage (person)
+#define  APPEND_STAGE 0xc4
+
+// replace a person stage (person)
+#define  REPLACE_STAGE 0xcd
+
+// append a person stage (person)
+#define REMOVE_STAGE 0xc5
 
 // command: subscribe vehicle type context
 #define CMD_SUBSCRIBE_VEHICLETYPE_CONTEXT 0x85
