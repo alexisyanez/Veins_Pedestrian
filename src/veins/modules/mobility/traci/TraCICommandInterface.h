@@ -31,6 +31,7 @@ class TraCICommandInterface
 
 		// Vehicle methods
 		bool addVehicle(std::string vehicleId, std::string vehicleTypeId, std::string routeId, simtime_t emitTime_st = -DEPART_NOW, double emitPosition = -DEPART_POS_BASE, double emitSpeed = -DEPART_SPEED_MAX, int8_t emitLane = -DEPART_LANE_BEST_FREE);
+
 		class Vehicle {
 			public:
 				Vehicle(TraCICommandInterface* traci, std::string nodeId) : traci(traci), nodeId(nodeId) {
@@ -66,6 +67,7 @@ class TraCICommandInterface
 
         // Person methods
         bool addPed(std::string pedId, std::string pedTypeId, std::string routeId, simtime_t emitTime_st = -DEPART_NOW, double emitPosition = -DEPART_POS_BASE, double emitSpeed = -DEPART_SPEED_MAX, int8_t emitLane = -DEPART_LANE_BEST_FREE);
+
         class Pedestrian {
             public:
                 Pedestrian(TraCICommandInterface* traci, std::string nodeId) : traci(traci), nodeId(nodeId) {

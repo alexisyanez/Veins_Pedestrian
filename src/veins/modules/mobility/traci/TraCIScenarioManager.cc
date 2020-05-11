@@ -1454,7 +1454,9 @@ void TraCIScenarioManager::processPersonSubscription(std::string objectId, TraCI
         else {
         // module existed - update position
         MYDEBUG << "module " << objectId << " moving to " << p.x << "," << p.y << endl;
+        MYDEBUG << "module " << objectId << " in edge: " << edge << endl;
         updateModulePositionPed(mod, p, edge, speed, angle); //updateModulePositionPed
+
         }
 
     //}
