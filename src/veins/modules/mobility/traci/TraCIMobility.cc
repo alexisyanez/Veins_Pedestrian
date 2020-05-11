@@ -246,7 +246,7 @@ void TraCIMobility::changePosition()
 
 void TraCIMobility::changeParkingState(bool newState) {
 	isParking = newState;
-	emit(parkingStateChangedSignal, this);
+	//emit(parkingStateChangedSignal, this);
 }
 
 void TraCIMobility::fixIfHostGetsOutside()
