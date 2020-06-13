@@ -28,4 +28,5 @@ class WaveShortMessage;
 packet BasicSafetyMessage extends WaveShortMessage {
 //	Coord senderPos;
 //	Coord senderSpeed;
+   // string MyInfo;
 }

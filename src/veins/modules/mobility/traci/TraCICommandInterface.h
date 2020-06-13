@@ -74,7 +74,7 @@ class TraCICommandInterface
                     connection = &traci->connection;
                 }
 
-                //void setSpeedMode(int32_t bitset);
+                void setSpeedMode(int32_t bitset);
                 void setSpeed(double speed);
                 void setColor(const TraCIColor& color);
                 //void slowDown(double speed, int time);

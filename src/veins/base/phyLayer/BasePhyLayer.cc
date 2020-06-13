@@ -105,9 +105,10 @@ void BasePhyLayer::initialize(int stage) {
 
 
 
-		//initialise timer messages
+		//initialize timer messages
 		radioSwitchingOverTimer = new cMessage("radio switching over", RADIO_SWITCHING_OVER);
 		txOverTimer = new cMessage("transmission over", TX_OVER);
+
 
 	}
 }
@@ -624,7 +625,6 @@ AirFrame *BasePhyLayer::encapsMsg(cPacket *macPkt)
 	frame->setBitLength(headerLength);
 	frame->setId(world->getUniqueAirFrameId());
 	frame->setChannel(radio->getCurrentChannel());
-
 
 	// pointer and Signal not needed anymore
 	delete s;

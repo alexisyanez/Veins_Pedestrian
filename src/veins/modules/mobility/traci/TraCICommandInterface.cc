@@ -351,9 +351,11 @@ bool TraCICommandInterface::Vehicle::changeVehicleRoute(const std::list<std::str
 	ASSERT(obuf.eof());
 	return true;
 }
+
 ///////////////////
-// Code By Alexis
+// Code By Alexis Y
 /////////////////
+
 bool TraCICommandInterface::addPed(std::string PedId, std::string PedTypeId, std::string routeId, simtime_t emitTime_st, double emitPosition, double emitSpeed, int8_t emitLane) {
     bool success = false;
 
@@ -365,6 +367,13 @@ bool TraCICommandInterface::addPed(std::string PedId, std::string PedTypeId, std
     ASSERT(buf.eof());
 
     return success;
+}
+
+void TraCICommandInterface::Pedestrian::setSpeedMode(int32_t bitset) {
+    uint8_t variableId = VAR_SPEEDSETMODE;
+    uint8_t variableType = TYPE_INTEGER;
+    TraCIBuffer buf = traci->connection.query(CMD_SET_PERSON_VARIABLE, TraCIBuffer() << variableId << nodeId << variableType << bitset);
+    ASSERT(buf.eof());
 }
 
 void TraCICommandInterface::Pedestrian::setSpeed(double speed) {

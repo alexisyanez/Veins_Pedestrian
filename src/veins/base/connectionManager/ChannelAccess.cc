@@ -86,6 +86,8 @@ void ChannelAccess::sendToChannel(cPacket *msg)
             	//calculate delay (Propagation) to this receiving nic
             	delay = calculatePropagationDelay(i->first);
 
+            	coreEV <<"Propagation delay is: "<< delay << endl;
+
                 int radioStart = i->second->getId();
                 int radioEnd = radioStart + i->second->size();
                 for (int g = radioStart; g != radioEnd; ++g)
@@ -94,6 +96,7 @@ void ChannelAccess::sendToChannel(cPacket *msg)
             }
             //calculate delay (Propagation) to this receiving nic
 			delay = calculatePropagationDelay(i->first);
+			coreEV <<"Propagation delay is: "<< delay << endl;
 
             int radioStart = i->second->getId();
             int radioEnd = radioStart + i->second->size();
@@ -117,11 +120,15 @@ void ChannelAccess::sendToChannel(cPacket *msg)
             	//calculate delay (Propagation) to this receiving nic
 				delay = calculatePropagationDelay(i->first);
 
+				coreEV <<"Propagation delay is: "<< delay << endl;
+
                 sendDelayed( static_cast<cPacket*>(msg->dup()),
                              delay, i->second );
             }
             //calculate delay (Propagation) to this receiving nic
 			delay = calculatePropagationDelay(i->first);
+
+			coreEV <<"Propagation delay is: "<< delay << endl;
 
             sendDelayed( msg, delay, i->second );
         }
