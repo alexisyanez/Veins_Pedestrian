@@ -177,8 +177,7 @@ def parse_launch_configuration(launch_xml_string):
 def run_sumo(runpath, sumo_command, shlex, config_file_name, remote_port, seed, client_socket, unused_port_lock, keep_temp):
     """
     Actually run SUMO.
-    """
-    seed = 0    
+    """  
     
     # create log files
     sumoLogOut = open(os.path.join(runpath, 'sumo-launchd.out.log'), 'w')
@@ -665,7 +664,7 @@ def main():
     # this is where we'll spend our time
     wait_for_connections(options.command, options.shlex, options.port, options.bind, options.daemonize, options.kill, options.pidfile, options.keep_temp)
 
-
+f
 # Start main() when run interactively
 if __name__ == '__main__':
     main()
