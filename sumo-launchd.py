@@ -178,7 +178,8 @@ def run_sumo(runpath, sumo_command, shlex, config_file_name, remote_port, seed, 
     """
     Actually run SUMO.
     """
-
+    seed = 0    
+    
     # create log files
     sumoLogOut = open(os.path.join(runpath, 'sumo-launchd.out.log'), 'w')
     sumoLogErr = open(os.path.join(runpath, 'sumo-launchd.err.log'), 'w')

@@ -61,9 +61,9 @@ simple TraCIScenarioManagerLaunchd
         string moduleDisplayString = default("*='i=veins/node/car;is=vs'");
         
         //code by Alexis Yáñez
-        string PedmoduleType = default("org.car2x.veins.nodes.Car");  // module type to be used in the simulation for each managed pedestrian
+        string PedmoduleType = default("ca_system.nodes.Car");  // module type to be used in the simulation for each managed pedestrian
         string PedmoduleName = default("Pednode");  // module name to be used in the simulation for each managed vehicle
-        string PedmoduleDisplayString = default("Pednode='i=veins/node/pedestrian;is=vs'");
+        string PedmoduleDisplayString = default("i=veins/node/pedestrian;is=vs");
         
         string host = default("localhost");  // sumo-launchd.py server hostname
         int port = default(9999);  // sumo-launchd.py server port
