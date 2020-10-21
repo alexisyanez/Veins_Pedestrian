@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.1 from veins/modules/messages/AirFrame11p.msg.
+// Generated file, do not edit! Created by nedtool 5.5 from veins/modules/messages/AirFrame11p.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -148,6 +148,7 @@ void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 
 }  // namespace omnetpp
 
+namespace veins {
 
 // forward
 template<typename T, typename A>
@@ -179,13 +180,13 @@ inline std::ostream& operator<<(std::ostream& out, const std::vector<T,A>& vec)
 
 Register_Class(AirFrame11p)
 
-AirFrame11p::AirFrame11p(const char *name, short kind) : ::AirFrame(name,kind)
+AirFrame11p::AirFrame11p(const char *name, short kind) : ::veins::AirFrame(name,kind)
 {
-    this->underSensitivity = false;
+    this->underMinPowerLevel = false;
     this->wasTransmitting = false;
 }
 
-AirFrame11p::AirFrame11p(const AirFrame11p& other) : ::AirFrame(other)
+AirFrame11p::AirFrame11p(const AirFrame11p& other) : ::veins::AirFrame(other)
 {
     copy(other);
 }
@@ -197,39 +198,39 @@ AirFrame11p::~AirFrame11p()
 AirFrame11p& AirFrame11p::operator=(const AirFrame11p& other)
 {
     if (this==&other) return *this;
-    ::AirFrame::operator=(other);
+    ::veins::AirFrame::operator=(other);
     copy(other);
     return *this;
 }
 
 void AirFrame11p::copy(const AirFrame11p& other)
 {
-    this->underSensitivity = other.underSensitivity;
+    this->underMinPowerLevel = other.underMinPowerLevel;
     this->wasTransmitting = other.wasTransmitting;
 }
 
 void AirFrame11p::parsimPack(omnetpp::cCommBuffer *b) const
 {
-    ::AirFrame::parsimPack(b);
-    doParsimPacking(b,this->underSensitivity);
+    ::veins::AirFrame::parsimPack(b);
+    doParsimPacking(b,this->underMinPowerLevel);
     doParsimPacking(b,this->wasTransmitting);
 }
 
 void AirFrame11p::parsimUnpack(omnetpp::cCommBuffer *b)
 {
-    ::AirFrame::parsimUnpack(b);
-    doParsimUnpacking(b,this->underSensitivity);
+    ::veins::AirFrame::parsimUnpack(b);
+    doParsimUnpacking(b,this->underMinPowerLevel);
     doParsimUnpacking(b,this->wasTransmitting);
 }
 
-bool AirFrame11p::getUnderSensitivity() const
+bool AirFrame11p::getUnderMinPowerLevel() const
 {
-    return this->underSensitivity;
+    return this->underMinPowerLevel;
 }
 
-void AirFrame11p::setUnderSensitivity(bool underSensitivity)
+void AirFrame11p::setUnderMinPowerLevel(bool underMinPowerLevel)
 {
-    this->underSensitivity = underSensitivity;
+    this->underMinPowerLevel = underMinPowerLevel;
 }
 
 bool AirFrame11p::getWasTransmitting() const
@@ -272,7 +273,7 @@ class AirFrame11pDescriptor : public omnetpp::cClassDescriptor
 
 Register_ClassDescriptor(AirFrame11pDescriptor)
 
-AirFrame11pDescriptor::AirFrame11pDescriptor() : omnetpp::cClassDescriptor("AirFrame11p", "AirFrame")
+AirFrame11pDescriptor::AirFrame11pDescriptor() : omnetpp::cClassDescriptor("veins::AirFrame11p", "veins::AirFrame")
 {
     propertynames = nullptr;
 }
@@ -334,7 +335,7 @@ const char *AirFrame11pDescriptor::getFieldName(int field) const
         field -= basedesc->getFieldCount();
     }
     static const char *fieldNames[] = {
-        "underSensitivity",
+        "underMinPowerLevel",
         "wasTransmitting",
     };
     return (field>=0 && field<2) ? fieldNames[field] : nullptr;
@@ -344,7 +345,7 @@ int AirFrame11pDescriptor::findField(const char *fieldName) const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
     int base = basedesc ? basedesc->getFieldCount() : 0;
-    if (fieldName[0]=='u' && strcmp(fieldName, "underSensitivity")==0) return base+0;
+    if (fieldName[0]=='u' && strcmp(fieldName, "underMinPowerLevel")==0) return base+0;
     if (fieldName[0]=='w' && strcmp(fieldName, "wasTransmitting")==0) return base+1;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
@@ -428,7 +429,7 @@ std::string AirFrame11pDescriptor::getFieldValueAsString(void *object, int field
     }
     AirFrame11p *pp = (AirFrame11p *)object; (void)pp;
     switch (field) {
-        case 0: return bool2string(pp->getUnderSensitivity());
+        case 0: return bool2string(pp->getUnderMinPowerLevel());
         case 1: return bool2string(pp->getWasTransmitting());
         default: return "";
     }
@@ -444,7 +445,7 @@ bool AirFrame11pDescriptor::setFieldValueAsString(void *object, int field, int i
     }
     AirFrame11p *pp = (AirFrame11p *)object; (void)pp;
     switch (field) {
-        case 0: pp->setUnderSensitivity(string2bool(value)); return true;
+        case 0: pp->setUnderMinPowerLevel(string2bool(value)); return true;
         case 1: pp->setWasTransmitting(string2bool(value)); return true;
         default: return false;
     }
@@ -477,4 +478,5 @@ void *AirFrame11pDescriptor::getFieldStructValuePointer(void *object, int field,
     }
 }
 
+} // namespace veins
 

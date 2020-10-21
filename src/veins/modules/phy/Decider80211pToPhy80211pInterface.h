@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -18,8 +20,9 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#ifndef DECIDER80211PTOPHY80211PINTERFACE_H_
-#define DECIDER80211PTOPHY80211PINTERFACE_H_
+#pragma once
+
+namespace veins {
 
 /**
  * @brief
@@ -29,10 +32,10 @@
  *
  * @ingroup phyLayer
  */
-class Decider80211pToPhy80211pInterface {
+class VEINS_API Decider80211pToPhy80211pInterface {
 public:
-	virtual ~Decider80211pToPhy80211pInterface() {};
-	virtual int getRadioState()=0;
+    virtual ~Decider80211pToPhy80211pInterface(){};
+    virtual int getRadioState() = 0;
 };
 
-#endif /* DECIDER80211PTOPHY80211PINTERFACE_H_ */
+} // namespace veins

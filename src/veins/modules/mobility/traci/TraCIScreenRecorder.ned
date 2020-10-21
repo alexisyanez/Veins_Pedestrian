@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -38,8 +40,7 @@ simple TraCIScreenRecorder
 {
     parameters:
         @display("i=block/downarrow");
-        @class(Veins::TraCIScreenRecorder);
-        bool debug = default(false);  // emit debug messages?
+        @class(veins::TraCIScreenRecorder);
         string dirname = default("");  // directory name for screenshots (leave blank to use ${resultdir})
         string filenameTemplate = default("");  // file name for screenshots in printf syntax; the %f parameter is set to the current simulation time (leave blank to use screenshot-${runid}-@%08.2f.png)
         string viewName = default("View #0");  // which TraCI server view to choose

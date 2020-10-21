@@ -1,33 +1,40 @@
-/* -*- mode:c++ -*- ********************************************************
- * file:        BaseLayer.h
- *
- * author:      Andreas Koepke
- *
- * copyright:   (C) 2006 Telecommunication Networks Group (TKN) at
- *              Technische Universitaet Berlin, Germany.
- *
- *              This program is free software; you can redistribute it
- *              and/or modify it under the terms of the GNU General Public
- *              License as published by the Free Software Foundation; either
- *              version 2 of the License, or (at your option) any later
- *              version.
- *              For further information see file COPYING
- *              in the top level directory
- ***************************************************************************
- * part of:     framework implementation developed by tkn
- * description: basic layer class
- *              subclass to create your own layer
- **************************************************************************/
+//
+// Copyright (C) 2006 Telecommunication Networks Group (TKN) at Technische Universitaet Berlin, Germany.
+//
+// Documentation for these modules is at http://veins.car2x.org/
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+//
 
+// author:      Andreas Koepke
+// part of:     framework implementation developed by tkn
+// description: basic layer class
+//              subclass to create your own layer
 
-#ifndef BASE_LAYER_H
-#define BASE_LAYER_H
+#pragma once
 
-#include "veins/base/utils/MiXiMDefs.h"
+#include "veins/veins.h"
+
 #include "veins/base/modules/BatteryAccess.h"
 #include "veins/base/utils/PassedMessage.h"
 
-using Veins::BatteryAccess;
+namespace veins {
+
+using veins::BatteryAccess;
 
 /**
  * @brief A very simple layer template
@@ -38,17 +45,16 @@ using Veins::BatteryAccess;
  * @ingroup baseModules
  * @author Andreas Koepke
  */
-class MIXIM_API BaseLayer : public BatteryAccess
-{
+class VEINS_API BaseLayer : public BatteryAccess {
 public:
     /** @brief SignalID for packets. */
-    const static simsignalwrap_t catPacketSignal;
+    const static simsignal_t catPacketSignal;
     /** @brief Signal for passed messages.*/
-    const static simsignalwrap_t catPassedMsgSignal;
+    const static simsignal_t catPassedMsgSignal;
     /** @brief Signal for dropped packets.*/
-    const static simsignalwrap_t catDroppedPacketSignal;
-protected:
+    const static simsignal_t catDroppedPacketSignal;
 
+protected:
     /** @name gate ids*/
     /*@{*/
     int upperLayerIn;
@@ -63,28 +69,30 @@ protected:
 
     /** @brief The last message passed through this layer. This variable will be only not NULL if we are
      * in statistic recording mode.*/
-    PassedMessage *passedMsg;
+    PassedMessage* passedMsg;
 
 public:
     BaseLayer()
         : BatteryAccess()
-        , passedMsg(NULL)
-    {}
+        , passedMsg(nullptr)
+    {
+    }
     BaseLayer(unsigned stacksize)
         : BatteryAccess(stacksize)
-        , passedMsg(NULL)
-    {}
-    virtual ~BaseLayer();
-    //Module_Class_Members(BaseLayer, BaseModule, 0 );
+        , passedMsg(nullptr)
+    {
+    }
+    ~BaseLayer() override;
+    // Module_Class_Members(BaseLayer, BaseModule, 0 );
 
     /** @brief Initialization of the module and some variables*/
-    virtual void initialize(int);
+    void initialize(int) override;
 
     /** @brief Called every time a message arrives*/
-    virtual void handleMessage( cMessage* );
+    void handleMessage(cMessage*) override;
 
     /** @brief Called when the simulation has finished.*/
-    virtual void finish();
+    void finish() override;
 
 protected:
     /**
@@ -107,19 +115,18 @@ protected:
      * This function is pure virtual here, because there is no
      * reasonable guess what to do with it by default.
      */
-    virtual void handleUpperMsg(cMessage *msg) = 0;
+    virtual void handleUpperMsg(cMessage* msg) = 0;
 
     /** @brief Handle messages from lower layer */
-    virtual void handleLowerMsg(cMessage *msg) = 0;
+    virtual void handleLowerMsg(cMessage* msg) = 0;
 
     /** @brief Handle control messages from lower layer */
-    virtual void handleLowerControl(cMessage *msg) = 0;
+    virtual void handleLowerControl(cMessage* msg) = 0;
 
     /** @brief Handle control messages from upper layer */
-    virtual void handleUpperControl(cMessage *msg) = 0;
+    virtual void handleUpperControl(cMessage* msg) = 0;
 
     /*@}*/
-
 
     /**
      * @name Convenience Functions
@@ -140,7 +147,7 @@ protected:
      * You have to take care of encapsulation We recommend that you
      * use a pair of functions called encapsMsg/decapsMsg.
      */
-    void sendDown(cMessage *msg);
+    void sendDown(cMessage* msg);
 
     /** @brief Sends a message to the upper layer
      *
@@ -149,22 +156,20 @@ protected:
      * superflous frames. We recommend that you use a pair of
      * functions decapsMsg/encapsMsg.
      */
-    void sendUp(cMessage *msg);
+    void sendUp(cMessage* msg);
 
     /** @brief Sends a control message to an upper layer */
-    void sendControlUp(cMessage *msg);
+    void sendControlUp(cMessage* msg);
 
     /** @brief Sends a control message to a lower layer */
-    void sendControlDown(cMessage *msg);
+    void sendControlDown(cMessage* msg);
 
-    void recordPacket(PassedMessage::direction_t dir,
-                      PassedMessage::gates_t gate,
-                      const cMessage *m);
+    void recordPacket(PassedMessage::direction_t dir, PassedMessage::gates_t gate, const cMessage* m);
 
-// private:
-//   	void recordPacket(bool in, MsgType type, const cMessage *);
-//	void printPackets(std::map<MsgType,std::map<int,std::pair<char *,int>* > *> *use, bool in);
+    // private:
+    //       void recordPacket(bool in, MsgType type, const cMessage *);
+    //    void printPackets(std::map<MsgType,std::map<int,std::pair<char *,int>* > *> *use, bool in);
     /*@}*/
 };
 
-#endif
+} // namespace veins

@@ -1,30 +1,36 @@
-/* -*- mode:c++ -*- *******************************************************
- * file:        NetwToMacControlInfo.h
- *
- * author:      Daniel Willkomm
- *
- * copyright:   (C) 2005 Telecommunication Networks Group (TKN) at
- *              Technische Universitaet Berlin, Germany.
- *
- *              This program is free software; you can redistribute it
- *              and/or modify it under the terms of the GNU General Public
- *              License as published by the Free Software Foundation; either
- *              version 2 of the License, or (at your option) any later
- *              version.
- *              For further information see file COPYING
- *              in the top level directory
- **************************************************************************
- * part of:     framework implementation developed by tkn
- * description: - control info to pass next hop to the MAC layer
- **************************************************************************/
+//
+// Copyright (C) 2005 Telecommunication Networks Group (TKN) at Technische Universitaet Berlin, Germany.
+//
+// Documentation for these modules is at http://veins.car2x.org/
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+//
 
-#ifndef NETWTOMACCONTROLINFO_H
-#define NETWTOMACCONTROLINFO_H
+// author:      Daniel Willkomm
+// part of:     framework implementation developed by tkn
+// description: - control info to pass next hop to the MAC layer
 
-#include <omnetpp.h>
+#pragma once
 
-#include "veins/base/utils/MiXiMDefs.h"
+#include "veins/veins.h"
+
 #include "veins/base/utils/SimpleAddress.h"
+
+namespace veins {
 
 /**
  * @brief Control info to pass next hop L2 addr from netw to MAC layer
@@ -39,37 +45,38 @@
  * @ingroup netwLayer
  * @author Daniel Willkomm
  **/
-class MIXIM_API NetwToMacControlInfo : public cObject
-{
-  protected:
+class VEINS_API NetwToMacControlInfo : public cObject {
+protected:
     /** @brief MAC address of the sending or receiving node*/
-	LAddress::L2Type nextHopMac;
+    LAddress::L2Type nextHopMac;
 
-  public:
+public:
     /** @brief Default constructor*/
     NetwToMacControlInfo(const LAddress::L2Type& addr = LAddress::L2NULL())
-      : cObject()
-      , nextHopMac(addr)
-    {
-    };
+        : cObject()
+        , nextHopMac(addr){};
 
     /** @brief Destructor*/
-    virtual ~NetwToMacControlInfo() {};
+    ~NetwToMacControlInfo() override {};
 
     /** @brief Getter method */
-    virtual const LAddress::L2Type& getNextHopMac() const {
-    	return nextHopMac;
+    virtual const LAddress::L2Type& getNextHopMac() const
+    {
+        return nextHopMac;
     };
-    virtual const LAddress::L2Type& getDest() const {
-    	return nextHopMac;
+    virtual const LAddress::L2Type& getDest() const
+    {
+        return nextHopMac;
     };
 
     /** @brief Setter method */
-    virtual void setNextHopMac(const LAddress::L2Type& addr) {
-    	nextHopMac = addr;
+    virtual void setNextHopMac(const LAddress::L2Type& addr)
+    {
+        nextHopMac = addr;
     };
-    virtual void setDest(const LAddress::L2Type& addr) {
-    	nextHopMac = addr;
+    virtual void setDest(const LAddress::L2Type& addr)
+    {
+        nextHopMac = addr;
     };
 
     /**
@@ -82,20 +89,19 @@ class MIXIM_API NetwToMacControlInfo : public cObject
      * Only one "control info" structure can be attached (the second
      * setL3ToL2ControlInfo() call throws an error).
      *
-     * @param pMsg		The message where the "control info" shall be attached.
-     * @param pDestAddr	The MAC address of the message receiver.
+     * @param pMsg        The message where the "control info" shall be attached.
+     * @param pDestAddr    The MAC address of the message receiver.
      */
-    static cObject *const setControlInfo(cMessage *const pMsg, const LAddress::L2Type& pDestAddr);
+    static cObject* const setControlInfo(cMessage* const pMsg, const LAddress::L2Type& pDestAddr);
     /**
      * @brief Extracts the MAC address from the "control info" structure (object).
      *
      * Extract the destination MAC address from the "control info" which was prev. set by NetwToMacControlInfo::setControlInfo().
      *
-     * @param pCtrlInfo	The "control info" structure (object) prev. set by NetwToMacControlInfo::setControlInfo().
+     * @param pCtrlInfo    The "control info" structure (object) prev. set by NetwToMacControlInfo::setControlInfo().
      * @return The MAC address of message receiver.
      */
-    static const LAddress::L2Type& getDestFromControlInfo(const cObject *const pCtrlInfo);
+    static const LAddress::L2Type& getDestFromControlInfo(const cObject* const pCtrlInfo);
 };
 
-
-#endif
+} // namespace veins

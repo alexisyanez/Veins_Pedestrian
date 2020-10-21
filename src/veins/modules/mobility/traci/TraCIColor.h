@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -18,29 +20,25 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#ifndef WORLD_TRACI_TRACICOLORS_H
-#define WORLD_TRACI_TRACICOLORS_H
+#pragma once
 
-#include "veins/base/utils/MiXiMDefs.h"
+#include "veins/veins.h"
 
-namespace Veins {
+namespace veins {
 
 /**
  * TraCI compatible color container
  */
-class TraCIColor {
-	public:
-		TraCIColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha);
-		static TraCIColor fromTkColor(std::string tkColorName);
+class VEINS_API TraCIColor {
+public:
+    TraCIColor(uint8_t red, uint8_t green, uint8_t blue, uint8_t alpha);
+    static TraCIColor fromTkColor(std::string tkColorName);
 
-	public:
-		uint8_t red;
-		uint8_t green;
-		uint8_t blue;
-		uint8_t alpha;
+public:
+    uint8_t red;
+    uint8_t green;
+    uint8_t blue;
+    uint8_t alpha;
 };
 
-}
-
-#endif
-
+} // namespace veins

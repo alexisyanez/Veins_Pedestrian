@@ -2,14 +2,15 @@
 # OMNeT++/OMNEST Makefile for $(LIB_PREFIX)veins
 #
 # This file was generated with the command:
-#  opp_makemake --make-so -f --deep -o veins -O out -I.
+#  opp_makemake --make-so -f --deep -o veins -O out -pVEINS -I. -I.
 #
 
 # Name of target to be created (-o option)
-TARGET = $(LIB_PREFIX)veins$(SHARED_LIB_SUFFIX)
+TARGET = $(LIB_PREFIX)veins$(D)$(SHARED_LIB_SUFFIX)
+TARGET_DIR = .
 
 # C++ include paths (with -I)
-INCLUDE_PATH = -I.
+INCLUDE_PATH = -I. -I.
 
 # Additional object and library files to link with
 EXTRA_OBJS =
@@ -41,74 +42,89 @@ OBJS = \
     $O/veins/base/phyLayer/BaseDecider.o \
     $O/veins/base/phyLayer/BasePhyLayer.o \
     $O/veins/base/phyLayer/ChannelInfo.o \
-    $O/veins/base/phyLayer/ChannelState.o \
     $O/veins/base/phyLayer/Decider.o \
-    $O/veins/base/phyLayer/MappingBase.o \
-    $O/veins/base/phyLayer/MappingUtils.o \
     $O/veins/base/phyLayer/PhyUtils.o \
-    $O/veins/base/phyLayer/Signal.o \
-    $O/veins/base/utils/asserts.o \
+    $O/veins/base/toolbox/Signal.o \
+    $O/veins/base/toolbox/SignalUtils.o \
+    $O/veins/base/toolbox/Spectrum.o \
     $O/veins/base/utils/Coord.o \
+    $O/veins/base/utils/Heading.o \
     $O/veins/base/utils/NetwToMacControlInfo.o \
     $O/veins/base/utils/SimpleAddress.o \
     $O/veins/base/utils/winsupport.o \
     $O/veins/modules/analogueModel/BreakpointPathlossModel.o \
-    $O/veins/modules/analogueModel/JakesFading.o \
-    $O/veins/modules/analogueModel/LogNormalShadowing.o \
     $O/veins/modules/analogueModel/NakagamiFading.o \
     $O/veins/modules/analogueModel/PERModel.o \
     $O/veins/modules/analogueModel/SimpleObstacleShadowing.o \
     $O/veins/modules/analogueModel/SimplePathlossModel.o \
     $O/veins/modules/analogueModel/TwoRayInterferenceModel.o \
-    $O/veins/modules/application/ieee80211p/BaseWaveApplLayer.o \
+    $O/veins/modules/analogueModel/VehicleObstacleShadowing.o \
+    $O/veins/modules/application/ieee80211p/DemoBaseApplLayer.o \
     $O/veins/modules/application/traci/MyVeinsApp.o \
     $O/veins/modules/application/traci/TraCIDemo11p.o \
     $O/veins/modules/application/traci/TraCIDemoRSU11p.o \
-    $O/veins/modules/application/traci/TraCITestApp.o \
     $O/veins/modules/mac/ieee80211p/Mac1609_4.o \
     $O/veins/modules/mobility/LinearMobility.o \
     $O/veins/modules/mobility/traci/TraCIBuffer.o \
     $O/veins/modules/mobility/traci/TraCIColor.o \
     $O/veins/modules/mobility/traci/TraCICommandInterface.o \
     $O/veins/modules/mobility/traci/TraCIConnection.o \
+    $O/veins/modules/mobility/traci/TraCICoordinateTransformation.o \
     $O/veins/modules/mobility/traci/TraCILauncher.o \
     $O/veins/modules/mobility/traci/TraCIMobility.o \
+    $O/veins/modules/mobility/traci/TraCIPersonInserter.o \
+    $O/veins/modules/mobility/traci/TraCIRegionOfInterest.o \
     $O/veins/modules/mobility/traci/TraCIScenarioManager.o \
     $O/veins/modules/mobility/traci/TraCIScenarioManagerForker.o \
     $O/veins/modules/mobility/traci/TraCIScenarioManagerLaunchd.o \
     $O/veins/modules/mobility/traci/TraCIScreenRecorder.o \
+    $O/veins/modules/mobility/traci/TraCIVehicleInserter.o \
+    $O/veins/modules/obstacle/MobileHostObstacle.o \
     $O/veins/modules/obstacle/Obstacle.o \
     $O/veins/modules/obstacle/ObstacleControl.o \
+    $O/veins/modules/obstacle/VehicleObstacleControl.o \
     $O/veins/modules/phy/Decider80211p.o \
     $O/veins/modules/phy/NistErrorRate.o \
     $O/veins/modules/phy/PhyLayer80211p.o \
     $O/veins/modules/phy/SampledAntenna1D.o \
-    $O/veins/modules/phy/SNRThresholdDecider.o \
+    $O/veins/modules/utility/BBoxLookup.o \
+    $O/veins/modules/utility/HasLogProxy.o \
+    $O/veins/modules/utility/TimerManager.o \
     $O/veins/modules/world/annotations/AnnotationDummy.o \
     $O/veins/modules/world/annotations/AnnotationManager.o \
+    $O/veins/modules/world/traci/trafficLight/TraCITrafficLightInterface.o \
+    $O/veins/modules/world/traci/trafficLight/TraCITrafficLightProgram.o \
+    $O/veins/modules/world/traci/trafficLight/logics/TraCITrafficLightAbstractLogic.o \
+    $O/veins/modules/world/traci/trafficLight/logics/TraCITrafficLightSimpleLogic.o \
     $O/veins/base/messages/AirFrame_m.o \
     $O/veins/base/messages/BorderMsg_m.o \
-    $O/veins/base/messages/ChannelSenseRequest_m.o \
     $O/veins/base/messages/MacPkt_m.o \
+    $O/veins/modules/application/traci/TraCIDemo11pMessage_m.o \
+    $O/veins/modules/messages/AckTimeOutMessage_m.o \
     $O/veins/modules/messages/AirFrame11p_m.o \
-    $O/veins/modules/messages/BasicSafetyMessage_m.o \
+    $O/veins/modules/messages/BaseFrame1609_4_m.o \
+    $O/veins/modules/messages/DemoSafetyMessage_m.o \
+    $O/veins/modules/messages/DemoServiceAdvertisement_m.o \
+    $O/veins/modules/messages/Mac80211Ack_m.o \
     $O/veins/modules/messages/Mac80211Pkt_m.o \
     $O/veins/modules/messages/PhyControlMessage_m.o \
-    $O/veins/modules/messages/WaveServiceAdvertisement_m.o \
-    $O/veins/modules/messages/WaveShortMessage_m.o
+    $O/veins/modules/messages/TraCITrafficLightMessage_m.o
 
 # Message files
 MSGFILES = \
     veins/base/messages/AirFrame.msg \
     veins/base/messages/BorderMsg.msg \
-    veins/base/messages/ChannelSenseRequest.msg \
     veins/base/messages/MacPkt.msg \
+    veins/modules/application/traci/TraCIDemo11pMessage.msg \
+    veins/modules/messages/AckTimeOutMessage.msg \
     veins/modules/messages/AirFrame11p.msg \
-    veins/modules/messages/BasicSafetyMessage.msg \
+    veins/modules/messages/BaseFrame1609_4.msg \
+    veins/modules/messages/DemoSafetyMessage.msg \
+    veins/modules/messages/DemoServiceAdvertisement.msg \
+    veins/modules/messages/Mac80211Ack.msg \
     veins/modules/messages/Mac80211Pkt.msg \
     veins/modules/messages/PhyControlMessage.msg \
-    veins/modules/messages/WaveServiceAdvertisement.msg \
-    veins/modules/messages/WaveShortMessage.msg
+    veins/modules/messages/TraCITrafficLightMessage.msg
 
 # SM files
 SMFILES =
@@ -136,8 +152,8 @@ include $(CONFIGFILE)
 # Simulation kernel and user interface libraries
 OMNETPP_LIBS = -loppenvir$D $(KERNEL_LIBS) $(SYS_LIBS)
 
-COPTS = $(CFLAGS) $(IMPORT_DEFINES)  $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
-MSGCOPTS = $(INCLUDE_PATH)
+COPTS = $(CFLAGS) $(IMPORT_DEFINES) -DVEINS_EXPORT $(INCLUDE_PATH) -I$(OMNETPP_INCL_DIR)
+MSGCOPTS = $(INCLUDE_PATH) -PVEINS_API
 SMCOPTS =
 
 # we want to recompile everything if COPTS changes,
@@ -152,13 +168,36 @@ endif
 # User-supplied makefile fragment(s)
 # >>>
 # inserted from file 'makefrag':
+
+#
+# Copyright (C) 2017 Rudolf Hornig <rudi@omnetpp.org>
+#
+# Documentation for these modules is at http://veins.car2x.org/
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+
 #
 # on windows we have to link with the ws2_32 (winsock2) library as it is no longer added to the omnetpp system libraries by default (as of OMNeT++ 5.1)
 # copied from INET Framework (inet-3.6.0) makefrag
 #
 ifeq ($(PLATFORM),win32.x86_64)
   LIBS += -lws2_32
-  DEFINES += -DINET_EXPORT
+  DEFINES += -DVEINS_EXPORT
   ENABLE_AUTO_IMPORT=-Wl,--enable-auto-import
   LDFLAGS := $(filter-out $(ENABLE_AUTO_IMPORT), $(LDFLAGS))
 endif
@@ -167,8 +206,14 @@ endif
 #------------------------------------------------------------------------------
 
 # Main target
-all: $O/$(TARGET)
-	$(Q)$(LN) $O/$(TARGET) .
+all: $(TARGET_DIR)/$(TARGET)
+
+$(TARGET_DIR)/% :: $O/%
+	@mkdir -p $(TARGET_DIR)
+	$(Q)$(LN) $< $@
+ifeq ($(TOOLCHAIN_NAME),clangc2)
+	$(Q)-$(LN) $(<:%.dll=%.lib) $(@:%.dll=%.lib)
+endif
 
 $O/$(TARGET): $(OBJS)  $(wildcard $(EXTRA_OBJS)) Makefile $(CONFIGFILE)
 	@$(MKPATH) $O
@@ -187,7 +232,7 @@ $O/%.o: %.cc $(COPTS_FILE) | msgheaders smheaders
 
 %_m.cc %_m.h: %.msg
 	$(qecho) MSGC: $<
-	$(Q)$(MSGC) -s _m.cc $(MSGCOPTS) $?
+	$(Q)$(MSGC) -s _m.cc -MD -MP -MF $O/$(basename $<)_m.h.d $(MSGCOPTS) $?
 
 %_sm.cc %_sm.h: %.sm
 	$(qecho) SMC: $<
@@ -198,13 +243,16 @@ msgheaders: $(MSGFILES:.msg=_m.h)
 smheaders: $(SMFILES:.sm=_sm.h)
 
 clean:
-	$(qecho) Cleaning...
+	$(qecho) Cleaning $(TARGET)
 	$(Q)-rm -rf $O
-	$(Q)-rm -f $(TARGET)
+	$(Q)-rm -f $(TARGET_DIR)/$(TARGET)
+	$(Q)-rm -f $(TARGET_DIR)/$(TARGET:%.dll=%.lib)
 	$(Q)-rm -f $(call opp_rwildcard, . , *_m.cc *_m.h *_sm.cc *_sm.h)
 
-cleanall: clean
+cleanall:
+	$(Q)$(MAKE) -s clean MODE=release
+	$(Q)$(MAKE) -s clean MODE=debug
 	$(Q)-rm -rf $(PROJECT_OUTPUT_DIR)
 
 # include all dependencies
--include $(OBJS:%.o=%.d)
+-include $(OBJS:%=%.d) $(MSGFILES:%.msg=$O/%_m.h.d)

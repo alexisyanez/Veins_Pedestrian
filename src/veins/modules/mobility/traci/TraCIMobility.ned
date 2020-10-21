@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -38,10 +40,11 @@ import org.car2x.veins.base.modules.BaseMobility;
 simple TraCIMobility extends BaseMobility
 {
     parameters:
-        @class(Veins::TraCIMobility);
+        @class(veins::TraCIMobility);
+        @signal[org_car2x_veins_modules_mobility_parkingStateChanged](type=veins::TraCIMobility);
         @display("i=block/cogwheel");
-        bool debug = default(false);  // debug switch
-        double antennaPositionOffset @unit("m") = default(0.0m);  // position offset of the antenna of the front of the car
+        double hostPositionOffset @unit("m") = default(0.0m);  // shift OMNeT++ module this far from front of the car
+        bool setHostSpeed = default(false);  // whether to update the speed of the host (along with its position)
         int accidentCount = default(0);  // number of accidents
         double accidentStart @unit("s") = default(uniform(30s,60s));  // time until first accident, relative to departure time
         volatile double accidentDuration @unit("s") = default(uniform(30s,60s));  // duration of accident

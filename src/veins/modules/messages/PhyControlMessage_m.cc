@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.1 from veins/modules/messages/PhyControlMessage.msg.
+// Generated file, do not edit! Created by nedtool 5.5 from veins/modules/messages/PhyControlMessage.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -148,6 +148,7 @@ void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 
 }  // namespace omnetpp
 
+namespace veins {
 
 // forward
 template<typename T, typename A>
@@ -181,8 +182,8 @@ Register_Class(PhyControlMessage)
 
 PhyControlMessage::PhyControlMessage(const char *name, short kind) : ::omnetpp::cMessage(name,kind)
 {
-    this->mcs = 0;
-    this->txPower_mW = 0;
+    this->mcs = -1;
+    this->txPower_mW = -1;
 }
 
 PhyControlMessage::PhyControlMessage(const PhyControlMessage& other) : ::omnetpp::cMessage(other)
@@ -272,7 +273,7 @@ class PhyControlMessageDescriptor : public omnetpp::cClassDescriptor
 
 Register_ClassDescriptor(PhyControlMessageDescriptor)
 
-PhyControlMessageDescriptor::PhyControlMessageDescriptor() : omnetpp::cClassDescriptor("PhyControlMessage", "omnetpp::cMessage")
+PhyControlMessageDescriptor::PhyControlMessageDescriptor() : omnetpp::cClassDescriptor("veins::PhyControlMessage", "omnetpp::cMessage")
 {
     propertynames = nullptr;
 }
@@ -477,4 +478,5 @@ void *PhyControlMessageDescriptor::getFieldStructValuePointer(void *object, int 
     }
 }
 
+} // namespace veins
 

@@ -1,0 +1,4 @@
+TraCITestClient output file. Date: Sun Sep 27 11:48:30 2020
+
+----
+#Error while connecting: tcpip::Socket::connect() @ connect: Connection refused

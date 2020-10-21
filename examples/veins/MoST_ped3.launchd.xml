@@ -1,0 +1,8 @@
+<launch>
+  <seed value="1234" />
+  <copy file="MoST_ped4.net.xml"/>
+  <copy file="MoST_ped3.rou.xml"/>
+  <copy file="MoST_ped3.poly.xml"/>
+  <copy file="most3.busstops.add.xml"/>
+  <copy file="MoST_ped3.sumocfg" type="config"/>
+</launch>

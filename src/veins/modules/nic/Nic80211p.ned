@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -28,12 +30,14 @@ import org.car2x.veins.modules.mac.ieee80211p.Mac1609_4;
 //
 // @author David Eckhoff
 //
-// @see BaseWaveApplLayer
+// @see DemoBaseApplLayer
 // @see Mac1609_4
 // @see PhyLayer80211p
 //
 module Nic80211p like INic80211p
 {
+    parameters:
+        string connectionManagerName = default("connectionManager");
     gates:
         input upperLayerIn; // to upper layers
         output upperLayerOut; // from upper layers

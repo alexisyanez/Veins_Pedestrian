@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -18,13 +20,14 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#ifndef WORLD_TRACI_TRACISCENARIOMANAGERFORKER_H
-#define WORLD_TRACI_TRACISCENARIOMANAGERFORKER_H
+#pragma once
 
-#include <omnetpp.h>
+#include "veins/veins.h"
 
 #include "veins/modules/mobility/traci/TraCIScenarioManager.h"
 #include "veins/modules/mobility/traci/TraCILauncher.h"
+
+namespace veins {
 
 /**
  * @brief
@@ -41,37 +44,31 @@
  * @see TraCIScenarioManager
  *
  */
-namespace Veins {
-class TraCIScenarioManagerForker : public TraCIScenarioManager
-{
-	public:
+class VEINS_API TraCIScenarioManagerForker : public TraCIScenarioManager {
+public:
+    TraCIScenarioManagerForker();
+    ~TraCIScenarioManagerForker() override;
+    void initialize(int stage) override;
+    void finish() override;
 
-		TraCIScenarioManagerForker();
-		virtual ~TraCIScenarioManagerForker();
-		virtual void initialize(int stage);
-		virtual void finish();
+protected:
+    std::string commandLine; /**< command line for running TraCI server (substituting $configFile, $seed, $port) */
+    std::string command; /**< substitution for $command parameter */
+    std::string configFile; /**< substitution for $configFile parameter */
+    int seed; /**< substitution for $seed parameter (-1: current run number) */
 
-	protected:
+    TraCILauncher* server;
 
-		std::string commandLine; /**< command line for running TraCI server (substituting $configFile, $seed, $port) */
-		std::string configFile; /**< substitution for $configFile parameter */
-		int seed; /**< substitution for $seed parameter (-1: current run number) */
-
-		TraCILauncher* server;
-
-		virtual void startServer();
-		virtual void killServer();
+    virtual void startServer();
+    virtual void killServer();
+    int getPortNumber() const override;
 };
-}
 
-namespace Veins {
-class TraCIScenarioManagerForkerAccess
-{
-	public:
-		TraCIScenarioManagerForker* get() {
-			return FindModule<TraCIScenarioManagerForker*>::findGlobalModule();
-		};
+class VEINS_API TraCIScenarioManagerForkerAccess {
+public:
+    TraCIScenarioManagerForker* get()
+    {
+        return FindModule<TraCIScenarioManagerForker*>::findGlobalModule();
+    };
 };
-}
-
-#endif
+} // namespace veins

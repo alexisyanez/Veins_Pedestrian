@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Generated with Monaco SUMO Traffic (MoST) Scenario [https://github.com/lcodeca/MoSTScenario] xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd"> 
+ -->
+
+<additional> 
+	
+	<busStop id="131098" name="Roqueville" lane="-152701#3_1" startPos="4.690000000000001" endPos="19.69" lines="2:Jardin 4:Fontvieille 5:Hopital" friendlyPos="true"/> <!-- 131098 -->
+    <busStop id="131202" name="Roqueville" lane="152701#4_1" startPos="11.407112418346731" endPos="26.40711241834673" lines="2:Monaco 4:SaintRoman 5:Larvotto" friendlyPos="true"/> <!-- 131202 -->
+    <busStop id="131131" name="131131" lane="152701#4_1" startPos="23.25289225759716" endPos="38.25289225759716" lines="" friendlyPos="true"/> <!-- 131131 -->
+
+</additional>

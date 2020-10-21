@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -20,17 +22,24 @@
 
 #include "veins/modules/application/traci/TraCIDemoRSU11p.h"
 
-Define_Module(TraCIDemoRSU11p);
+#include "veins/modules/application/traci/TraCIDemo11pMessage_m.h"
 
-void TraCIDemoRSU11p::onWSA(WaveServiceAdvertisment* wsa) {
-    //if this RSU receives a WSA for service 42, it will tune to the chan
+using namespace veins;
+
+Define_Module(veins::TraCIDemoRSU11p);
+
+void TraCIDemoRSU11p::onWSA(DemoServiceAdvertisment* wsa)
+{
+    // if this RSU receives a WSA for service 42, it will tune to the chan
     if (wsa->getPsid() == 42) {
-        mac->changeServiceChannel(wsa->getTargetChannel());
+        mac->changeServiceChannel(static_cast<Channel>(wsa->getTargetChannel()));
     }
 }
 
-void TraCIDemoRSU11p::onWSM(WaveShortMessage* wsm) {
-    //this rsu repeats the received traffic update in 2 seconds plus some random delay
-    wsm->setSenderAddress(myId);
-    sendDelayedDown(wsm->dup(), 2 + uniform(0.01,0.2));
+void TraCIDemoRSU11p::onWSM(BaseFrame1609_4* frame)
+{
+    TraCIDemo11pMessage* wsm = check_and_cast<TraCIDemo11pMessage*>(frame);
+
+    // this rsu repeats the received traffic update in 2 seconds plus some random delay
+    sendDelayedDown(wsm->dup(), 2 + uniform(0.01, 0.2));
 }

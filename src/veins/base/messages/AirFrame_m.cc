@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.1 from veins/base/messages/AirFrame.msg.
+// Generated file, do not edit! Created by nedtool 5.5 from veins/base/messages/AirFrame.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -148,7 +148,7 @@ void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 
 }  // namespace omnetpp
 
-namespace Veins {
+namespace veins {
 
 // forward
 template<typename T, typename A>
@@ -188,6 +188,7 @@ AirFrame::AirFrame(const char *name, short kind) : ::omnetpp::cPacket(name,kind)
     this->id = 0;
     this->protocolId = 0;
     this->channel = 0;
+    this->mcs = 0;
 }
 
 AirFrame::AirFrame(const AirFrame& other) : ::omnetpp::cPacket(other)
@@ -217,6 +218,7 @@ void AirFrame::copy(const AirFrame& other)
     this->id = other.id;
     this->protocolId = other.protocolId;
     this->channel = other.channel;
+    this->mcs = other.mcs;
 }
 
 void AirFrame::parsimPack(omnetpp::cCommBuffer *b) const
@@ -230,6 +232,7 @@ void AirFrame::parsimPack(omnetpp::cCommBuffer *b) const
     doParsimPacking(b,this->id);
     doParsimPacking(b,this->protocolId);
     doParsimPacking(b,this->channel);
+    doParsimPacking(b,this->mcs);
 }
 
 void AirFrame::parsimUnpack(omnetpp::cCommBuffer *b)
@@ -243,6 +246,7 @@ void AirFrame::parsimUnpack(omnetpp::cCommBuffer *b)
     doParsimUnpacking(b,this->id);
     doParsimUnpacking(b,this->protocolId);
     doParsimUnpacking(b,this->channel);
+    doParsimUnpacking(b,this->mcs);
 }
 
 Signal& AirFrame::getSignal()
@@ -325,6 +329,16 @@ void AirFrame::setChannel(int channel)
     this->channel = channel;
 }
 
+int AirFrame::getMcs() const
+{
+    return this->mcs;
+}
+
+void AirFrame::setMcs(int mcs)
+{
+    this->mcs = mcs;
+}
+
 class AirFrameDescriptor : public omnetpp::cClassDescriptor
 {
   private:
@@ -355,7 +369,7 @@ class AirFrameDescriptor : public omnetpp::cClassDescriptor
 
 Register_ClassDescriptor(AirFrameDescriptor)
 
-AirFrameDescriptor::AirFrameDescriptor() : omnetpp::cClassDescriptor("Veins::AirFrame", "omnetpp::cPacket")
+AirFrameDescriptor::AirFrameDescriptor() : omnetpp::cClassDescriptor("veins::AirFrame", "omnetpp::cPacket")
 {
     propertynames = nullptr;
 }
@@ -390,7 +404,7 @@ const char *AirFrameDescriptor::getProperty(const char *propertyname) const
 int AirFrameDescriptor::getFieldCount() const
 {
     omnetpp::cClassDescriptor *basedesc = getBaseClassDescriptor();
-    return basedesc ? 8+basedesc->getFieldCount() : 8;
+    return basedesc ? 9+basedesc->getFieldCount() : 9;
 }
 
 unsigned int AirFrameDescriptor::getFieldTypeFlags(int field) const
@@ -410,8 +424,9 @@ unsigned int AirFrameDescriptor::getFieldTypeFlags(int field) const
         FD_ISEDITABLE,
         FD_ISEDITABLE,
         FD_ISEDITABLE,
+        FD_ISEDITABLE,
     };
-    return (field>=0 && field<8) ? fieldTypeFlags[field] : 0;
+    return (field>=0 && field<9) ? fieldTypeFlags[field] : 0;
 }
 
 const char *AirFrameDescriptor::getFieldName(int field) const
@@ -431,8 +446,9 @@ const char *AirFrameDescriptor::getFieldName(int field) const
         "id",
         "protocolId",
         "channel",
+        "mcs",
     };
-    return (field>=0 && field<8) ? fieldNames[field] : nullptr;
+    return (field>=0 && field<9) ? fieldNames[field] : nullptr;
 }
 
 int AirFrameDescriptor::findField(const char *fieldName) const
@@ -447,6 +463,7 @@ int AirFrameDescriptor::findField(const char *fieldName) const
     if (fieldName[0]=='i' && strcmp(fieldName, "id")==0) return base+5;
     if (fieldName[0]=='p' && strcmp(fieldName, "protocolId")==0) return base+6;
     if (fieldName[0]=='c' && strcmp(fieldName, "channel")==0) return base+7;
+    if (fieldName[0]=='m' && strcmp(fieldName, "mcs")==0) return base+8;
     return basedesc ? basedesc->findField(fieldName) : -1;
 }
 
@@ -467,8 +484,9 @@ const char *AirFrameDescriptor::getFieldTypeString(int field) const
         "long",
         "int",
         "int",
+        "int",
     };
-    return (field>=0 && field<8) ? fieldTypeStrings[field] : nullptr;
+    return (field>=0 && field<9) ? fieldTypeStrings[field] : nullptr;
 }
 
 const char **AirFrameDescriptor::getFieldPropertyNames(int field) const
@@ -543,6 +561,7 @@ std::string AirFrameDescriptor::getFieldValueAsString(void *object, int field, i
         case 5: return long2string(pp->getId());
         case 6: return long2string(pp->getProtocolId());
         case 7: return long2string(pp->getChannel());
+        case 8: return long2string(pp->getMcs());
         default: return "";
     }
 }
@@ -563,6 +582,7 @@ bool AirFrameDescriptor::setFieldValueAsString(void *object, int field, int i, c
         case 5: pp->setId(string2long(value)); return true;
         case 6: pp->setProtocolId(string2long(value)); return true;
         case 7: pp->setChannel(string2long(value)); return true;
+        case 8: pp->setMcs(string2long(value)); return true;
         default: return false;
     }
 }
@@ -598,5 +618,5 @@ void *AirFrameDescriptor::getFieldStructValuePointer(void *object, int field, in
     }
 }
 
-} // namespace Veins
+} // namespace veins
 

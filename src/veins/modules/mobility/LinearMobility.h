@@ -1,26 +1,33 @@
-/* -*- mode:c++ -*- ********************************************************
- * file:        LinearMobility.h
- *
- * author:      Emin Ilker Cetinbas (niw3_at_yahoo_d0t_com)
- *
- * Copyright    (C) 2005 Emin Ilker Cetinbas
- *
- *              This program is free software; you can redistribute it
- *              and/or modify it under the terms of the GNU General Public
- *              License as published by the Free Software Foundation; either
- *              version 2 of the License, or (at your option) any later
- *              version.
- *              For further information see file COPYING
- *              in the top level directory
- ***************************************************************************
- * part of:     framework implementation developed by tkn
- **************************************************************************/
+//
+// Copyright (C) 2005 Emin Ilker Cetinbas
+//
+// Documentation for these modules is at http://veins.car2x.org/
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+//
 
+// author:      Emin Ilker Cetinbas (niw3_at_yahoo_d0t_com)
+// part of:     framework implementation developed by tkn
 
-#ifndef LINEAR_MOBILITY_H
-#define LINEAR_MOBILITY_H
+#pragma once
 
 #include "veins/base/modules/BaseMobility.h"
+
+namespace veins {
 
 /**
  * @brief Linear movement model. See NED file for more info.
@@ -32,25 +39,23 @@
  * @ingroup mobility
  * @author Emin Ilker Cetinbas
  */
-class MIXIM_API LinearMobility : public BaseMobility
-{
-  protected:
-    double angle;          ///< angle of linear motion
-    double acceleration;   ///< acceleration of linear motion
+class VEINS_API LinearMobility : public BaseMobility {
+protected:
+    double angle; ///< angle of linear motion
+    double acceleration; ///< acceleration of linear motion
 
     /** @brief always stores the last step for position display update */
     Coord stepTarget;
 
-  public:
+public:
     /** @brief Initializes mobility model parameters.*/
-    virtual void initialize(int);
+    void initialize(int) override;
 
-  protected:
+protected:
     /** @brief Move the host*/
-    virtual void makeMove();
+    void makeMove() override;
 
-    virtual void fixIfHostGetsOutside();
+    void fixIfHostGetsOutside() override;
 };
 
-#endif
-
+} // namespace veins

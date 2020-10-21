@@ -1,10 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 #
 # sumo-launchd.py -- SUMO launcher daemon for use with TraCI clients
 # Copyright (C) 2006-2012 Christoph Sommer <christoph.sommer@uibk.ac.at>
 #
 # Documentation for these modules is at http://veins.car2x.org/
+#
+# SPDX-License-Identifier: GPL-2.0-or-later
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -177,8 +179,8 @@ def parse_launch_configuration(launch_xml_string):
 def run_sumo(runpath, sumo_command, shlex, config_file_name, remote_port, seed, client_socket, unused_port_lock, keep_temp):
     """
     Actually run SUMO.
-    """  
-    
+    """
+
     # create log files
     sumoLogOut = open(os.path.join(runpath, 'sumo-launchd.out.log'), 'w')
     sumoLogErr = open(os.path.join(runpath, 'sumo-launchd.err.log'), 'w')
@@ -664,7 +666,7 @@ def main():
     # this is where we'll spend our time
     wait_for_connections(options.command, options.shlex, options.port, options.bind, options.daemonize, options.kill, options.pidfile, options.keep_temp)
 
-f
+
 # Start main() when run interactively
 if __name__ == '__main__':
     main()

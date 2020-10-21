@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.1 from veins/modules/messages/Mac80211Pkt.msg.
+// Generated file, do not edit! Created by nedtool 5.5 from veins/modules/messages/Mac80211Pkt.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -148,6 +148,7 @@ void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 
 }  // namespace omnetpp
 
+namespace veins {
 
 // forward
 template<typename T, typename A>
@@ -179,7 +180,7 @@ inline std::ostream& operator<<(std::ostream& out, const std::vector<T,A>& vec)
 
 Register_Class(Mac80211Pkt)
 
-Mac80211Pkt::Mac80211Pkt(const char *name, short kind) : ::MacPkt(name,kind)
+Mac80211Pkt::Mac80211Pkt(const char *name, short kind) : ::veins::MacPkt(name,kind)
 {
     this->address3 = 0;
     this->address4 = 0;
@@ -190,7 +191,7 @@ Mac80211Pkt::Mac80211Pkt(const char *name, short kind) : ::MacPkt(name,kind)
     this->duration = 0;
 }
 
-Mac80211Pkt::Mac80211Pkt(const Mac80211Pkt& other) : ::MacPkt(other)
+Mac80211Pkt::Mac80211Pkt(const Mac80211Pkt& other) : ::veins::MacPkt(other)
 {
     copy(other);
 }
@@ -202,7 +203,7 @@ Mac80211Pkt::~Mac80211Pkt()
 Mac80211Pkt& Mac80211Pkt::operator=(const Mac80211Pkt& other)
 {
     if (this==&other) return *this;
-    ::MacPkt::operator=(other);
+    ::veins::MacPkt::operator=(other);
     copy(other);
     return *this;
 }
@@ -220,7 +221,7 @@ void Mac80211Pkt::copy(const Mac80211Pkt& other)
 
 void Mac80211Pkt::parsimPack(omnetpp::cCommBuffer *b) const
 {
-    ::MacPkt::parsimPack(b);
+    ::veins::MacPkt::parsimPack(b);
     doParsimPacking(b,this->address3);
     doParsimPacking(b,this->address4);
     doParsimPacking(b,this->fragmentation);
@@ -232,7 +233,7 @@ void Mac80211Pkt::parsimPack(omnetpp::cCommBuffer *b) const
 
 void Mac80211Pkt::parsimUnpack(omnetpp::cCommBuffer *b)
 {
-    ::MacPkt::parsimUnpack(b);
+    ::veins::MacPkt::parsimUnpack(b);
     doParsimUnpacking(b,this->address3);
     doParsimUnpacking(b,this->address4);
     doParsimUnpacking(b,this->fragmentation);
@@ -342,7 +343,7 @@ class Mac80211PktDescriptor : public omnetpp::cClassDescriptor
 
 Register_ClassDescriptor(Mac80211PktDescriptor)
 
-Mac80211PktDescriptor::Mac80211PktDescriptor() : omnetpp::cClassDescriptor("Mac80211Pkt", "MacPkt")
+Mac80211PktDescriptor::Mac80211PktDescriptor() : omnetpp::cClassDescriptor("veins::Mac80211Pkt", "veins::MacPkt")
 {
     propertynames = nullptr;
 }
@@ -577,4 +578,5 @@ void *Mac80211PktDescriptor::getFieldStructValuePointer(void *object, int field,
     }
 }
 
+} // namespace veins
 

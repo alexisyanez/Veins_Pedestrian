@@ -1,0 +1,9 @@
+<launch>
+  <seed value="1234" />
+  <copy file="pedcrossing.net.xml"/>
+  <copy file="pedcrossing.rou.xml"/>
+  <copy file="pedcrossing.tll.xml"/>
+  <copy file="viewsettings.xml"/>
+  <copy file="MoST_ped3.poly.xml"/>
+  <copy file="run.sumo.cfg" type="config"/>
+</launch>

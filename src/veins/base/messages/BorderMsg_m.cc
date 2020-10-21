@@ -1,5 +1,5 @@
 //
-// Generated file, do not edit! Created by nedtool 5.1 from veins/base/messages/BorderMsg.msg.
+// Generated file, do not edit! Created by nedtool 5.5 from veins/base/messages/BorderMsg.msg.
 //
 
 // Disable warnings about unused variables, empty switch stmts, etc:
@@ -148,6 +148,7 @@ void doParsimUnpacking(omnetpp::cCommBuffer *, T& t)
 
 }  // namespace omnetpp
 
+namespace veins {
 
 // forward
 template<typename T, typename A>
@@ -284,7 +285,7 @@ class BorderMsgDescriptor : public omnetpp::cClassDescriptor
 
 Register_ClassDescriptor(BorderMsgDescriptor)
 
-BorderMsgDescriptor::BorderMsgDescriptor() : omnetpp::cClassDescriptor("BorderMsg", "omnetpp::cPacket")
+BorderMsgDescriptor::BorderMsgDescriptor() : omnetpp::cClassDescriptor("veins::BorderMsg", "omnetpp::cPacket")
 {
     propertynames = nullptr;
 }
@@ -497,4 +498,5 @@ void *BorderMsgDescriptor::getFieldStructValuePointer(void *object, int field, i
     }
 }
 
+} // namespace veins
 

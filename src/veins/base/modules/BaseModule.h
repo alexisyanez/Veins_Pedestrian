@@ -1,42 +1,38 @@
-/* -*- mode:c++ -*- ********************************************************
- * file:        BaseModule.h
- *
- * author:      Steffen Sroka
- *              Andreas Koepke
- *
- * copyright:   (C) 2004 Telecommunication Networks Group (TKN) at
- *              Technische Universitaet Berlin, Germany.
- *
- *              This program is free software; you can redistribute it
- *              and/or modify it under the terms of the GNU General Public
- *              License as published by the Free Software Foundation; either
- *              version 2 of the License, or (at your option) any later
- *              version.
- *              For further information see file COPYING
- *              in the top level directory
- ***************************************************************************
- * part of:     framework implementation developed by tkn
- **************************************************************************/
+//
+// Copyright (C) 2004 Telecommunication Networks Group (TKN) at Technische Universitaet Berlin, Germany.
+//
+// Documentation for these modules is at http://veins.car2x.org/
+//
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation; either version 2 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program; if not, write to the Free Software
+// Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+//
 
+// author:      Steffen Sroka
+//              Andreas Koepke
+// part of:     framework implementation developed by tkn
 
-#ifndef BASE_MODULE_H
-#define BASE_MODULE_H
+#pragma once
 
 #include <sstream>
-#include <omnetpp.h>
 
-#include "veins/base/utils/MiXiMDefs.h"
+#include "veins/veins.h"
+
 #include "veins/base/utils/HostState.h"
 
-#ifndef debugEV
-#define debugEV_clear EV
-#define debugEV EV << logName() << "::" << getClassName() << ": "
-#endif
-
-#ifndef coreEV
-#define coreEV_clear EV
-#define coreEV EV << logName() << "::" << getClassName() << ": "
-#endif
+namespace veins {
 
 /**
  * @brief Base class for all simple modules of a host.
@@ -70,20 +66,17 @@
  * @author Steffen Sroka
  * @author Andreas Koepke
  */
-class MIXIM_API BaseModule: public cSimpleModule, public cListener {
-  protected:
-    /** @brief Debug switch for all other modules*/
-    bool debug;
-
+class VEINS_API BaseModule : public cSimpleModule, public cListener {
+protected:
     /** @brief Stores if this module is affected by changes in the
      * hosts state. If not explicitly set this module has to capture
      * changes in the host state.*/
     bool notAffectedByHostState;
 
     /** @brief Stores the category of the HostState*/
-    const static simsignalwrap_t catHostStateSignal;
-protected:
+    const static simsignal_t catHostStateSignal;
 
+protected:
     /**
      * @brief Called whenever the hosts state changes.
      *
@@ -105,26 +98,27 @@ protected:
     void switchHostState(HostState::States state);
 
     /** @brief Function to get a pointer to the host module*/
-    cModule *const findHost(void);
-    const cModule *const findHost(void) const;
+    cModule* const findHost(void);
+    const cModule* const findHost(void) const;
     /** @brief Function to get the logging name of id*/
-    //std::string getLogName(int);
+    // std::string getLogName(int);
 
-    virtual void finish() {
+    void finish() override
+    {
         cSimpleModule::finish();
     }
 
-    virtual void finish(cComponent* component, simsignal_t signalID) {
+    void finish(cComponent* component, simsignal_t signalID) override
+    {
         cListener::finish(component, signalID);
     }
 
-  public:
-
+public:
     BaseModule();
     BaseModule(unsigned stacksize);
 
     /** @brief Basic initialization for all modules */
-    virtual void initialize(int);
+    void initialize(int) override;
 
     /**
      * @brief Divide initialization into two stages
@@ -138,8 +132,9 @@ protected:
      * assure that the other module had at least once the chance to initialize
      * itself in stage 0.
      */
-    virtual int numInitStages() const {
-    	return 2;
+    int numInitStages() const override
+    {
+        return 2;
     }
 
     /**
@@ -149,13 +144,14 @@ protected:
      * host ned variable loggingName is specified). It can be used for
      * logging messages to simplify debugging in TKEnv.
      */
-    std::string logName(void) const ;
+    std::string logName(void) const;
 
     /**
      * @brief Get a reference to the local node module
      */
-    const cModule *const getNode() const {
-    	return findHost();
+    const cModule* const getNode() const
+    {
+        return findHost();
     };
 
     /**
@@ -165,10 +161,11 @@ protected:
      * some debug notifications
      */
     using cListener::receiveSignal;
-    virtual void receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj, cObject* details);
-    virtual void receiveSignal(cComponent *source, simsignal_t signalID, cObject *obj) {
-        receiveSignal(source, signalID, obj, 0);
+    void receiveSignal(cComponent* source, simsignal_t signalID, cObject* obj, cObject* details) override;
+    virtual void receiveSignal(cComponent* source, simsignal_t signalID, cObject* obj)
+    {
+        receiveSignal(source, signalID, obj, nullptr);
     }
 };
 
-#endif
+} // namespace veins

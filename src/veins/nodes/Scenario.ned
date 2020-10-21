@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -22,9 +24,10 @@ package org.car2x.veins.nodes;
 
 import org.car2x.veins.base.connectionManager.ConnectionManager;
 import org.car2x.veins.base.modules.BaseWorldUtility;
-import org.car2x.veins.modules.mobility.traci.TraCIScenarioManagerLaunchd;
+import org.car2x.veins.modules.mobility.traci.TraCIScenarioManager*;
 import org.car2x.veins.modules.obstacle.ObstacleControl;
 import org.car2x.veins.modules.world.annotations.AnnotationManager;
+import org.car2x.veins.nodes.Car;
 
 network Scenario
 {
@@ -55,7 +58,9 @@ network Scenario
             parameters:
                 @display("p=512,128");
         }
-        
+        node[0]: Car {
+        }
+
     connections allowunconnected:
 }
 

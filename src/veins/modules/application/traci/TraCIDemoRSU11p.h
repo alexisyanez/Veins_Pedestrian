@@ -3,6 +3,8 @@
 //
 // Documentation for these modules is at http://veins.car2x.org/
 //
+// SPDX-License-Identifier: GPL-2.0-or-later
+//
 // This program is free software; you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
 // the Free Software Foundation; either version 2 of the License, or
@@ -18,18 +20,19 @@
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 //
 
-#ifndef TraCIDemoRSU11p_H
-#define TraCIDemoRSU11p_H
+#pragma once
 
-#include "veins/modules/application/ieee80211p/BaseWaveApplLayer.h"
+#include "veins/modules/application/ieee80211p/DemoBaseApplLayer.h"
+
+namespace veins {
 
 /**
  * Small RSU Demo using 11p
  */
-class TraCIDemoRSU11p : public BaseWaveApplLayer {
-	protected:
-		virtual void onWSM(WaveShortMessage* wsm);
-		virtual void onWSA(WaveServiceAdvertisment* wsa);
+class VEINS_API TraCIDemoRSU11p : public DemoBaseApplLayer {
+protected:
+    void onWSM(BaseFrame1609_4* wsm) override;
+    void onWSA(DemoServiceAdvertisment* wsa) override;
 };
 
-#endif
+} // namespace veins
