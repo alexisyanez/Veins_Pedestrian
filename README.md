@@ -1,4 +1,4 @@
-# Veins_Pedestrian
+# Veins-Pedestrian
 A versión of VEINS with pedestrian implementation see Class TraCIScenarioManager
 This extension allowsthe exchange of information between cars and VRU through the use of the IEEE 802.11p
 technology. Additionally, we can manage all protocol stacks for pedestrians and other kinds of VRU
